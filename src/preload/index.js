@@ -1,5 +1,6 @@
-import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+const { contextBridge } = require('electron');
+// const os = require('os')
 
 // Custom APIs for renderer
 const api = {}
@@ -11,6 +12,10 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
+    contextBridge.exposeInMainWorld('electron', {
+      // getComputerSerial: () => os.userInfo().username
+      getComputerSerial: () => "serial from preload"
+    });
   } catch (error) {
     console.error(error)
   }
@@ -18,3 +23,5 @@ if (process.contextIsolated) {
   window.electron = electronAPI
   window.api = api
 }
+
+

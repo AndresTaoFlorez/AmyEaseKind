@@ -1,20 +1,22 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron';
-import { join } from 'path';
+import * as path from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
-import icon from '../../resources/icon.png?asset';
+// import icon from '../../resources/icon.png?asset';
+import icon from '../../resources/icon.png';
 
 // getComputerInfo libraries
-const { exec } = require('child_process');
+// const { exec } = require('child_process');
 
-function getSerialNumber(callback) {
-  exec('wmic bios get serialnumber', (error, stdout) => {
-    if (error) {
-      callback(error, null);
-    } else {
-      callback(null, stdout.trim().split('\n')[1]); // El número de serie está en la segunda línea de la salida
-    }
-  });
-}
+// function getSerialNumber(callback) {
+//   exec('wmic bios get serialnumber', (error, stdout) => {
+//     if (error) {
+//       callback(error, null);
+//     } else {
+//       // callback(null, stdout.trim().split('\n')[1]); // El número de serie está en la segunda línea de la salida
+//       callback(null, stdout); // El número de serie está en la segunda línea de la salida
+//     }
+//   });
+// }
 
 function createWindow() {
   // Create the browser window.
@@ -25,20 +27,22 @@ function createWindow() {
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false,
+       sandbox: true,
+      //  nodeIntegration: true,
+      //  contextIsolation: false,
+       preload: path.join(__dirname, '../preload/index.js'),
     },
   });
-  8;
-  getSerialNumber((error, serialNumber) => {
-    if (error) {
-      console.error(`No se pudo obtener el serial: ${error}`);
-    } else {
-      mainWindow.webContents.on('did-finish-load', () => {
-        mainWindow.webContents.send('serialNumber', serialNumber);
-      });
-    }
-  });
+
+//   getSerialNumber((error, serialNumber) => {
+//     if (error) {
+//       console.error(`No se pudo obtener el serial: ${error}`);
+//     } else {
+//       mainWindow.webContents.on('did-finish-load', () => {
+//         mainWindow.webContents.send('serialNumber', serialNumber);
+//       });
+//     }
+//   });
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
