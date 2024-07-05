@@ -1,39 +1,20 @@
-import React, { useEffect, useState } from 'react';
-// import { ipcRenderer } from 'electron';
-// En tu código de React
-// En tu código de React
-
-
-// function GetSerialNumber() {
-//   useEffect(() => {
-//     ipcRenderer.on('serialNumber', (event, data) => {
-//       console.log(data); // Imprime el número de serie del equipo
-//       console.log("Data........."); // Imprime el número de serie del equipo
-//     });
-
-//     // Asegúrate de eliminar el listener cuando el componente se desmonte
-//     return () => {
-//       ipcRenderer.removeAllListeners('serialNumber');
-//     }
-//   }, []);
-
-//   return <div>Mi Componente</div>;
-// }
+import React, { useState } from 'react';
 
 function GetSerialNumber() {
-   const [serial, setSerial] = useState('')
+  const [serial, setSerial] = useState('data');
+  const handleClickSerial = () => {
+    const newSerial = window.electronData.getInfo()
+    // const newSerial = "serial"
+    setSerial(newSerial);
+  }
 
-   useEffect(()=>{
-      const serialNumber = window.electron.getComputerSerial()
-      // const serialNumber = "serial"
-      setSerial(serialNumber)
-   }, [])
-   return (<>
-      <div className="mainContaint">
-         <h2>Mi Componente</h2>
-         <h2>Número de serie: {serial}</h2>
-      </div>
-   </>)
+
+  return (
+    <div>
+      <button onClick={handleClickSerial}>Enviar datos</button>
+      <div>Data: {serial}</div>
+    </div>
+  );
 }
 
 export default GetSerialNumber;

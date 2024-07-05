@@ -27,7 +27,7 @@ function App() {
           </a>
         </div>
       </div>
-      <GetSerialNumber></GetSerialNumber>
+      <GetSerialNumber/>
       <Versions></Versions>
     </>
   )

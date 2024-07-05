@@ -29,7 +29,7 @@ function createWindow() {
     webPreferences: {
        sandbox: true,
       //  nodeIntegration: true,
-      //  contextIsolation: false,
+       contextIsolation: true,
        preload: path.join(__dirname, '../preload/index.js'),
     },
   });
