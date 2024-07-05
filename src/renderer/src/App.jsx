@@ -1,19 +1,10 @@
 import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
-const os = require('os')
-const { exec } = require('child_process')
-
+import GetSerialNumber from './logic/getComputerInfo'
+ 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
 
-  if (os.platform() === 'win32') {
-    exec('wmic bios get serialnumber', (err, stdout) => {
-      if (err) {
-        console.error(`An error occurred: ${err}`)
-      }
-      console.log(`The serial number is ${stdout}`)
-    })
-  }
   return (
     <>
       <img alt="logo" className="logo" src={electronLogo} />
@@ -36,6 +27,7 @@ function App() {
           </a>
         </div>
       </div>
+      <GetSerialNumber></GetSerialNumber>
       <Versions></Versions>
     </>
   )
