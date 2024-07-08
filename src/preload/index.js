@@ -8,21 +8,28 @@ const api = {}
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.
+// contextBridge.exposeInMainWorld('electron', {
+//    ...electronAPI,
+//    serialNumber: ()=>{ return Math.floor(Math.random() * 1000) }
+//    })
 if (process.contextIsolation) {
-  try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
-    contextBridge.exposeInMainWorld('electronData', {
-      getInfo: () => {
-        return "Hello from Electron"
-      }
-        
-    })
-  } catch (error) {
-    console.error(error)
-  }
-} else {
-  window.electron = electronAPI
-  window.api = api
-}
+   console.log('preload script loaded');
+   try {
+      contextBridge.exposeInMainWorld('electron', {
+         ...electronAPI,
+         serialNumber: ()=>{ return Math.floor(Math.random() * 1000) }
+         })
+      contextBridge.exposeInMainWorld('api', api)
+   } catch (error) {
+     console.error(error)
+   }
+ } else {
+   window.electron = {
+     ...electronAPI,
+     serialNumber: ()=>{ return Math.floor(Math.random() * 1000) }
+
+   }
+   window.api = api
+ }
+ 
 

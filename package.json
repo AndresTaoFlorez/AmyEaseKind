@@ -18,15 +18,15 @@
     "start": "electron-vite preview"
   },
   "dependencies": {
-    "@electron-toolkit/preload": "^3.0.1",
+    "@electron-toolkit/preload": "3.0.1",
     "@electron-toolkit/utils": "3.0.0",
+    "electron": "^31.1.0",
     "os": "0.1.2"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "1.0.2",
     "@electron-toolkit/eslint-config-prettier": "2.0.0",
     "@vitejs/plugin-react": "4.3.1",
-    "electron": "31.0.2",
     "electron-builder": "24.13.3",
     "electron-vite": "2.3.0",
     "eslint": "8.57.0",

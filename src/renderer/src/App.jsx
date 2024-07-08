@@ -1,9 +1,9 @@
 import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
 import GetSerialNumber from './logic/getComputerInfo'
- 
+
 function App() {
-  const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+   //   const ipcHandle = () => window.electron..send('ping')
 
   return (
     <>
@@ -22,9 +22,6 @@ function App() {
           </a>
         </div>
         <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
         </div>
       </div>
       <GetSerialNumber/>

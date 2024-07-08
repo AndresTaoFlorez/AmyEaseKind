@@ -7,6 +7,6 @@ module.exports = {
     '@electron-toolkit/eslint-config-prettier'
   ],
   rules: { 
-    indent:["", "space"]  
+    indent:["error", "space"]  
   }
 }

@@ -1,6 +1,6 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron';
-import * as path from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
+import { join } from "path";
 // import icon from '../../resources/icon.png?asset';
 import icon from '../../resources/icon.png';
 
@@ -17,20 +17,22 @@ import icon from '../../resources/icon.png';
 //     }
 //   });
 // }
-
 function createWindow() {
+  // Create the browser window.
+  const preloadPath = join(__dirname, '../../preload/index.js')
+console.log(preloadPath)
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+   //  ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
-       sandbox: true,
-      //  nodeIntegration: true,
+       sandbox: false,
        contextIsolation: true,
-       preload: path.join(__dirname, '../preload/index.js'),
+       preload: join(__dirname, '../preload/index.js'),
+       nodeIntegrationInWorker: true,
     },
   });
 
