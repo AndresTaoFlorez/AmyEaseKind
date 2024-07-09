@@ -1,35 +1,57 @@
-import { electronAPI } from '@electron-toolkit/preload'
+import { electronAPI } from '@electron-toolkit/preload';
 const { contextBridge } = require('electron');
-// const os = require('os')
+import { exec } from 'child_process';
+import { hostname } from 'os';
 
 // Custom APIs for renderer
-const api = {}
+const api = {};
+
+// custom Functions
+// 'wmic bios get serialnumber'
+function getComputerInfo_option(query) {
+  return new Promise((resolve, reject) => {
+    exec(query, (error, stdout) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(stdout);
+        // console.log(`Serial Number: ${stdout.toString().split('\n')[1].trim()}`);
+      }
+    });
+  });
+}
+async function getComputerInfo() {
+  try {
+    const serial = await getComputerInfo_option('wmic bios get serialnumber');
+    const hostN = await getComputerInfo_option('hostname');
+    // console.log(`serialNumber: ${serialNumber}`);
+    return {
+      hostname: hostN,
+      SerialNumber: serial
+     };
+  } catch (error) {
+    console.error(`SE PRESENTÓ EL SIGUIENTE ERROR: ${error}`);
+  }
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.
-// contextBridge.exposeInMainWorld('electron', {
-//    ...electronAPI,
-//    serialNumber: ()=>{ return Math.floor(Math.random() * 1000) }
-//    })
+contextBridge.exposeInMainWorld('electron', {
+  ...electronAPI,
+  getSerialNumber: async () => {
+    const data = await getComputerInfo();
+    return data
+  },
+});
 if (process.contextIsolation) {
-   console.log('preload script loaded');
-   try {
-      contextBridge.exposeInMainWorld('electron', {
-         ...electronAPI,
-         serialNumber: ()=>{ return Math.floor(Math.random() * 1000) }
-         })
-      contextBridge.exposeInMainWorld('api', api)
-   } catch (error) {
-     console.error(error)
-   }
- } else {
-   window.electron = {
-     ...electronAPI,
-     serialNumber: ()=>{ return Math.floor(Math.random() * 1000) }
-
-   }
-   window.api = api
- }
- 
-
+  console.log('preload script loaded');
+  try {
+    contextBridge.exposeInMainWorld('electron', electronAPI);
+    contextBridge.exposeInMainWorld('api', api);
+  } catch (error) {
+    console.error(error);
+  }
+} else {
+  (window.electron = electronAPI), (window.api = api);
+}

@@ -1,22 +1,8 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import { join } from "path";
-// import icon from '../../resources/icon.png?asset';
 import icon from '../../resources/icon.png';
 
-// getComputerInfo libraries
-// const { exec } = require('child_process');
-
-// function getSerialNumber(callback) {
-//   exec('wmic bios get serialnumber', (error, stdout) => {
-//     if (error) {
-//       callback(error, null);
-//     } else {
-//       // callback(null, stdout.trim().split('\n')[1]); // El número de serie está en la segunda línea de la salida
-//       callback(null, stdout); // El número de serie está en la segunda línea de la salida
-//     }
-//   });
-// }
 function createWindow() {
   // Create the browser window.
   const preloadPath = join(__dirname, '../../preload/index.js')
