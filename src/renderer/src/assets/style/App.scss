@@ -1,0 +1,9 @@
+@import './_general.scss';
+
+body {
+  background: var(--color-background);
+  color:var(--color-text);
+  font-family: var(--fontFamily);
+  padding: 0;
+  margin: 0;
+}

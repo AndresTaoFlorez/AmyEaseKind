@@ -20,15 +20,15 @@ function getComputerInfo_option(query) {
     });
   });
 }
-async function getComputerInfo() {
+async function getComputerInfo_preload() {
   try {
     const serial = await getComputerInfo_option('wmic bios get serialnumber');
     const hostN = await getComputerInfo_option('hostname');
-    // console.log(`serialNumber: ${serialNumber}`);
-    return {
+    const data = {
       hostname: hostN,
-      SerialNumber: serial
-     };
+      serialNumber: serial.split('\n')[1].trim(),
+     }
+     return data
   } catch (error) {
     console.error(`SE PRESENTÓ EL SIGUIENTE ERROR: ${error}`);
   }
@@ -39,9 +39,8 @@ async function getComputerInfo() {
 // just add to the DOM global.
 contextBridge.exposeInMainWorld('electron', {
   ...electronAPI,
-  getSerialNumber: async () => {
-    const data = await getComputerInfo();
-    return data
+  getComputerInfo: async () => {
+    return await getComputerInfo_preload();
   },
 });
 if (process.contextIsolation) {
