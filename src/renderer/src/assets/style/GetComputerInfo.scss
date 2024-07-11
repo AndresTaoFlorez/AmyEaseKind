@@ -1,7 +1,7 @@
 .getComputerInfo {
   background: #1b202b;
   padding: 1em;
-  .button {
+   .button {
     margin-top: 1em;
     display: flex;
     justify-content: center;
@@ -10,6 +10,34 @@
     border: none;
     border-radius: 7px / 10px;
     padding: 5px 6px;
+  }
+  .form {
+   display: grid;
+   gap: 0.1em;
+   flex-direction: column;
+   background: #2445cd;
+   padding: 1em;
+   margin-bottom: 0.4em;
+   border-radius: 5px;
+   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+   .formElement{
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.4em;
+   }
+   input {
+      box-sizing: border-box;
+      margin-right: 1em;
+      border: none;
+      border-radius: 7px / 10px;
+      padding: 5px 6px;
+      width: 10rem;
+   }
+   label {
+      margin-left: 0.4em;
+      box-sizing: border-box;
+      margin-bottom: 0.3em;
+   }
   }
 }
 

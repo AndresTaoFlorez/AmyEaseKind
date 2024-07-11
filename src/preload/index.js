@@ -22,11 +22,13 @@ function getComputerInfo_option(query) {
 }
 async function getComputerInfo_preload() {
   try {
-    const serial = await getComputerInfo_option('wmic bios get serialnumber');
-    const hostN = await getComputerInfo_option('hostname');
+    const serialNumber = await getComputerInfo_option('wmic bios get serialnumber');
+    const hostName = await getComputerInfo_option('hostname');
+    const manufacturerModel = await getComputerInfo_option('wmic baseboard get Manufacturer');
     const data = {
-      hostname: hostN,
-      serialNumber: serial.split('\n')[1].trim(),
+      hostname: hostName,
+      serialNumber: serialNumber.split('\n')[1].trim(),
+      manufacturerModel: manufacturerModel.split('\n')[1].trim()
      }
      return data
   } catch (error) {
