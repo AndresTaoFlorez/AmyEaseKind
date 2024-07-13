@@ -20,14 +20,18 @@ function GetComputerInfo() {
     handleClickSerial()
   }, [])
   
-  const handleClickData = () => {
-    fetch('http://localhost:3000/cases')
-    .then(response => {
-     const data = response.json()
-     setData({data})
-     console.log(data)
+  const handleClickData = async () => {
+   await fetch('http://localhost:3001/')
+    .then(response => response.json())
+    .then(data => {
+      setData(data.message)
     })
-  }
+    .catch(error => {
+      console.log(`<< Error: ${error}`)
+
+    })
+ };
+ 
   
   const chandleChange = (e) => {
     // setComputerInfo({...data, "hostname": handleClickData})
@@ -41,7 +45,6 @@ function GetComputerInfo() {
       hostname: sn.hostname,
       manufacturerModel: sn.manufacturerModel,
     });
-    
   };
 
 
@@ -103,7 +106,7 @@ function GetComputerInfo() {
 
       </section>
     </div>
-  );
+  )
 }
 
 export default GetComputerInfo;
