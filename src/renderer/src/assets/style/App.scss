@@ -7,3 +7,24 @@ body {
   padding: 0;
   margin: 0;
 }
+
+
+body::-webkit-scrollbar {
+  display: flex !important;
+  position: absolute;
+  width: 12px;               /* width of the entire scrollbar */
+
+}
+body::-webkit-scrollbar-track {
+  background: #1b202b;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(83, 83, 106, 0.5);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  margin: 2px;
+  border: 3px solid rgba(15, 13, 33, 0.496);
+  &:hover {
+    background: rgb(41, 79, 90);
+  }
+}

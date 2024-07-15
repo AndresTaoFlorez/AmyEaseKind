@@ -1,15 +1,107 @@
 .getComputerInfo {
   background: #1b202b;
   padding: 1em;
-   .button {
-    margin-top: 1em;
+  .test {
+   display: flex;
+   flex-direction: column;
+  }
+  .list {
     display: flex;
+    flex-direction: column;
+    background: #465472;
+    margin-top: 10px;
+    border-radius: 15px;
+    padding: 1em 3em 1em 1em;
+    min-width: fit-content;
+    width: fit-content;
+    box-sizing: border-box;
+    margin: 8px 0;
+    .elementList {
+      list-style: decimal;
+      background: #466372;
+      margin: 4px 0;
+      display: flex;
+      flex-direction: row;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border-bottom: 1px solid rgba(245, 245, 245, 0.566);
+      max-width: 500px;
+      width: fit-content;
+      .number {
+        display: flex;
+        margin: auto 0;
+        li {
+          list-style-type: none;
+          font-size: 2.2em;
+          font-weight: 600;
+          margin-right: 0.5em;
+        }
+      }
+      .element {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        box-sizing: border-box;
+        .elementTitleList {
+          display: flex;
+          flex-direction: row;
+          h1 {
+            font-size: 1.8em;
+            font-weight: 300;
+            margin-right: 0.5em;
+            overflow: hidden;
+            overflow-wrap: anywhere;
+          }
+          img {
+            width: auto;
+            max-height: 38px;
+            border-radius: 8px;
+            transition: all 200ms cubic-bezier(0.165, 0.84, 0.44, 1);
+          }
+          img:hover {
+            cursor: pointer;
+            scale: 4;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 0.7em;
+    }
+    .noData {
+      h1 {
+        color: #a7b4bc;
+      }
+    }
+  }
+  input {
+    width: fit-content;
+    box-sizing: border-box;
+  }
+   .button, button{
+    margin-top: 1em;
+    width: fit-content;
+    display: flex;
+    font-weight: 600;
     justify-content: center;
     align-items: center;
     margin-right: 1em;
+    margin-bottom: 0.1em;
     border: none;
     border-radius: 7px / 10px;
-    padding: 5px 6px;
+    padding: 5px 10px;
+    &:hover {
+      filter: brightness(1.1);
+      scale: 1.015;
+    }
+    &:active {
+      background: #6ca1bc;
+      color: #2b2b2b;
+      box-shadow: 0 0 10px 2px rgba(26, 26, 26, 0.258);
+    }
   }
   form {
    display: grid;
@@ -25,14 +117,7 @@
       flex-direction: column;
       margin-bottom: 0.4em;
    }
-   input {
-      box-sizing: border-box;
-      margin-right: 1em;
-      border: none;
-      border-radius: 7px / 10px;
-      padding: 5px 6px;
-      width: 10rem;
-   }
+   
    label {
       margin-left: 0.4em;
       box-sizing: border-box;
