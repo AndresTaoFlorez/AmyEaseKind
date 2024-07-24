@@ -9,6 +9,7 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { getTextFieldUtilityClass } from '@mui/material';
+import Search from '../components/Search';
 
 
 function GetComputerInfo() { 
@@ -109,6 +110,7 @@ function GetComputerInfo() {
   return (
     <div className='getComputerInfo'>
       <section className='test'>
+        <Search></Search>
         <input type='file' name='files' multiple onChange={handleFileChange} accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
         <div className='filesButtons'>
           <button onClick={uploadFile}>Upload</button>
