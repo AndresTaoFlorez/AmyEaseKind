@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { getTextFieldUtilityClass } from '@mui/material';
 
 
-function GetComputerInfo() {
+function GetComputerInfo() { 
   const [data, setData] = useState({});
   const [error, setError] = useState({})
 
