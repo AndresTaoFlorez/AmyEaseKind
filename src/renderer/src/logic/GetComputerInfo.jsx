@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import BasicButtons from '../components/Button';
+import WordIcon from '../components/WordIcon';
 import axios from 'axios';
 import '../assets/style/GetComputerInfo.scss'
 
@@ -62,14 +63,12 @@ function GetComputerInfo() {
 
   // enviar dato - SUBMIT
   const uploadFile = () => {
-
     const formData = new FormData();
-
     // agregar cada archivo en el FormData para enviarlo en el post (uso del forEach)
     files.forEach((file) => {
       formData.append('file', file);
     })
-
+    // Enviar los datos al backend con axios (uso de FormData para enviar archivos)
     axios.post('http://localhost:3001/cases',
       formData, {
       headers: {
@@ -80,6 +79,20 @@ function GetComputerInfo() {
     }).catch(error => {
       console.log(error);
     });
+  }
+
+
+  // Borrar todos los archivos cargados en el front
+  const erase = () => {
+    setFiles([])
+  }
+
+  // Borrar un solo archivo cargado en el front
+  const deleteFile = (e) => {
+    const position = e.target.id
+    console.log(`Position before: ${position}`);
+    const newArray = files.filter((file, index) => index != position ?? file)
+    setFiles(newArray)
   }
 
   // Cargar archivos al subir en el input
@@ -96,7 +109,11 @@ function GetComputerInfo() {
   return (
     <div className='getComputerInfo'>
       <section className='test'>
-        <input type='file' name='files' multiple onChange={handleFileChange} />
+        <input type='file' name='files' multiple onChange={handleFileChange} accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+        <div className='filesButtons'>
+          <button onClick={uploadFile}>Upload</button>
+          <button onClick={erase}>Erase All</button>
+        </div>
         <div className="list">
           {files.length ? files.map((element, i) => {
             return (
@@ -105,15 +122,16 @@ function GetComputerInfo() {
                 <div className="element">
                   <div className='elementTitleList'>
                     <h1>{element.name}</h1>
-                    <img src={URL.createObjectURL(element)} alt='file'></img>
+                    {/* <img src={URL.createObjectURL(element)} alt='file'></img> */}
+                    <WordIcon></WordIcon>
                   </div>
                   <p>{element.lastModifiedDate.toString()}</p>
+                  <button onClick={deleteFile} id={i}>Less</button>
                 </div>
               </ul>
             )
           }) : <div className='noData'><h1>No Data</h1></div>}
         </div>
-        <button onClick={uploadFile}>Upload</button>
         <button onClick={showFiles}>Show files</button>
         <button onClick={handleClickData}>Get data</button>
         <div className='list'>

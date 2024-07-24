@@ -4,6 +4,12 @@
   .test {
    display: flex;
    flex-direction: column;
+   .filesButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1em;
+   }
   }
   .list {
     display: flex;
